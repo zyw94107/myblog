@@ -25,7 +25,7 @@ SECRET_KEY = 'y^1@rby&57hyyyl$wmxq*+v-ti#8=&1z9llb01jravcv*a-p*t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','.zhouyw.top']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','www.zhouyw.top']
 
 
 # Application definition
