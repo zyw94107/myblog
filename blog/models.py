@@ -38,7 +38,7 @@ class Post(models.Model):
     #user
     author = models.ForeignKey(User)
 
-    views = models.PositiveIntegerField(default=0) #只为正数电饭锅 zaEFWD
+    views = models.PositiveIntegerField(default=0) #只为正数
 
     # 自定义 get_absolute_url 方法
     # 记得从 django.urls 中导入 reverse 函数

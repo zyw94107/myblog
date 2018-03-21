@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView,DetailView
-from .models import  Post,Category
+from .models import  Post,Category,Tag
 from comments.forms import CommentForm
 import markdown
 # Create your views here.
@@ -101,10 +101,10 @@ class PostDetailView(DetailView):
         })
         return context
 
-class Archives(IndexView):
+class ArchivesView(IndexView):
     def get_queryset(self):
 
-        return super(Archives,self).get_queryset().filter(creat_time__year=self.kwargs.get('year'),
+        return super(ArchivesView,self).get_queryset().filter(creat_time__year=self.kwargs.get('year'),
                                                           creat_time__month=self.kwargs.get('month'),
                                                           )
 
@@ -112,3 +112,9 @@ class CategoryView(IndexView):
     def get_queryset(self):#该父类方法主动获取所有列表数据，复写添加获取条件
         cate=get_object_or_404(Category,pk=self.kwargs.get('pk'))
         return super(CategoryView,self).get_queryset().filter(category=cate)
+
+class TagsView(IndexView):
+    def get_queryset(self):
+        tag =get_object_or_404(Tag,pk=self.kwargs.get('pk'))
+        return super(TagsView,self).get_queryset().filter(tag=tag)
+
