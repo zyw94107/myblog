@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.six import python_2_unicode_compatible
 from django.urls import reverse
 import markdown
+from myblog import settings
 from django.utils.html import strip_tags
 # Create your models here.
 
@@ -36,7 +37,7 @@ class Post(models.Model):
     tag = models.ManyToManyField(Tag,blank=True)
 
     #user
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     views = models.PositiveIntegerField(default=0) #只为正数
 
@@ -62,3 +63,4 @@ class Post(models.Model):
         return self.title
     class Meta:
         ordering=['-creat_time']
+
