@@ -69,8 +69,6 @@ class IndexView(ListView):
         }
         return data
 
-
-
 class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/detail.html'
@@ -118,3 +116,5 @@ class TagsView(IndexView):
         tag =get_object_or_404(Tag,pk=self.kwargs.get('pk'))
         return super(TagsView,self).get_queryset().filter(tag=tag)
 
+def about(request):
+    return render(request,'blog/about.html')
