@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = 'y^1@rby&57hyyyl$wmxq*+v-ti#8=&1z9llb01jravcv*a-p*t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','www.zhouyw.top','*']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.zhouyw.top', '*']
 
 # Application definition
 
@@ -74,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myblog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -83,12 +80,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'myblog',
         'USER': 'root',
-        'PASSWORD':'940107',
-        'HOST':'127.0.0.1',
-        'PORT':'3306'
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -108,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -120,18 +115,19 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False   #使用mysql 检索日期时把这个设置为false
-
+USE_TZ = False  # 使用mysql 检索日期时把这个设置为false
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 HAYSTACK_CONNECTIONS = {
-    'default':{
-        'ENGINE':'blog.whoosh_cn_backend.WhooshEngine',
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
 }
@@ -142,9 +138,9 @@ AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
-CACHES = { "default": { "BACKEND": "django_redis.cache.RedisCache",
-                        "LOCATION": "redis://127.0.0.1:6379/0",
-                        "OPTIONS": { "CLIENT_CLASS": "django_redis.client.DefaultClient",
-                                     }
-                        }
-           }
+CACHES = {"default": {"BACKEND": "django_redis.cache.RedisCache",
+                      "LOCATION": "redis://127.0.0.1:6379/0",
+                      "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient",
+                                  }
+                      }
+          }

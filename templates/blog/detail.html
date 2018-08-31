@@ -1,37 +1,51 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <article class="post post-{{ post.pk }}">
-      <header class="entry-header">
-         <h1 class="entry-title">{{ post.title }}</h1>
-         <div class="entry-meta">
-              <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
-              <span class="post-date"><a href="#"><time class="entry-date"
-                                                        datetime="{{ post.creat_time }}">{{ post.creat_time }}</time></a></span>
-              <span class="post-author"><a href="#">{{ post.author }}</a></span>
-            <span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
-            <span class="views-count"><a href="#">{{ post.views }} 阅读 </a></span>
-            </div>
-      </header>
-    <div class="entry-content clearfix">
-      {{ post.body|safe }}
-        <div class="widget widget-tag-cloud">
-               <ul>
-                   {% for tag in post.tag.all %}
-                   <li>
-                       <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name}}</a>
-                   </li>
-                   {% endfor %}
-               </ul>
-          </div>
-     </div>
-    </article>
+    <main class="unit-3-4 unit-1-on-mobile top-gap">
+        <div class="bg-white card post-card px-7 py-5">
+            <article class="post">
+                <div class="unit unit-1-on-mobile">
+                    <h1 class="top-gap-0">{{ post.title }}</h1>
+                    <ul class="list-inline dot-divider post-meta">
+                        <li class="list-inline-item text-small text-muted">
+                            <span class="text-muted text-small text-faded">{{ post.author }}</span>
+                        </li>
+                        <li class="list-inline-item text-small text-muted">
+                            <a class="text-small text-faded"
+                               href="#">{{ post.creat_time|date:"Y-m-d H:m" }}</a>
+                        </li>
+                        <li class="list-inline-item text-small text-muted">
+                            <span class="text-muted text-small text-faded">{{ post.category.name }}</span>
+                        </li>
+                        <li class="list-inline-item text-small text-muted">
+                            <span class="text-muted text-small text-faded">{{ post.comment_set.count }} 评论</span>
+                        </li>
+                        <li class="list-inline-item text-small text-muted">
+                            <span class="text-muted text-small text-faded">{{ post.views }} 阅读</span>
+                        </li>
+                    </ul>
+                    <div class="top-gap-big post-body">
+                        {{ post.body|safe }}
+                        <p class="text-center">
+                            -- EOF --
+                        </p>
+                    </div>
+                    <div class="post-tags">
+                        <ul class="list-inline">
+                            {% for tag in post.tags.all %}
+                                <li class="list-inline-item"><a class="text-small" href="#">{{ tag }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        <br>
+            <!--评论模块-->
+            <section class="comment-area top-gap-big" id="comment-area">
+                <hr>
+                <h3>发表评论</h3>
 
-    <section class="comment-area" id="comment-area">
-                    <hr>
-                    <h3>发表评论</h3>
-
-                    {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                     <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
                         {% csrf_token %}
                         <div class="row">
@@ -47,29 +61,28 @@
                             </div>
                         </div>    <!-- row -->
                     </form>
-                    {% else %}
-                        请先<a class="btn btn-defaul" href="{% url 'login' %}?next={{ request.path }}" >登陆</a>后评论
-                    {% endif %}
+                {% else %}
+                    请先<a class="btn btn-defaul" href="{% url 'login' %}?next={{ request.path }}">登陆</a>后评论
+                {% endif %}
 
-                    <div class="comment-list-panel">
-                        <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
-                        <ul class="comment-list list-unstyled">
-                            {% for comment in comment_list %}
+                <div class="comment-list-panel">
+                    <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
+                    <ul class="comment-list list-unstyled">
+                        {% for comment in comment_list %}
                             <li class="comment-item">
                                 <span class="nickname">{{ comment.name }}</span>
-                                <time class="submit-date" datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
+                                <time class="submit-date"
+                                      datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
                                 <div class="text">
                                     {{ comment.text }}
                                 </div>
                             </li>
-                            {% empty %}
-                                评论为空！
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </section>
-{% endblock %}
-
-{% block toc %}
-
+                        {% empty %}
+                            评论为空！
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
 {% endblock %}

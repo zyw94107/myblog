@@ -8,7 +8,7 @@ env.password = 'z9940107'
 
 # 填写你自己的主机对应的域名
 env.hosts = ['35.229.149.208']
-env.key_filename ='~/.ssh/my-ssh-key'
+env.key_filename = '~/.ssh/my-ssh-key'
 # 一般情况下为 22 端口，如果非 22 端口请查看你的主机服务提供商提供的信息
 env.port = '22'
 
